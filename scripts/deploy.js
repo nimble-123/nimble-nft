@@ -1,14 +1,22 @@
-async function main() {
+async function deploy() {
     const NimbleNFT = await ethers.getContractFactory('NimbleNFT');
 
     // Start deployment, returning a promise that resolves to a contract object
     const nimbleNFT = await NimbleNFT.deploy();
-    console.log('Contract deployed to address:', nimbleNFT.address);
+    return nimbleNFT;
 }
 
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
+async function main() {
+    try {
+        const nimbleNFT = await deploy();
+        console.log('Contract deployed to address:', nimbleNFT.address);
+    } catch (error) {
         console.error(error);
         process.exit(1);
-    });
+    } finally {
+        console.log('Have fun... :)');
+        process.exit(0);
+    }
+}
+
+main();
